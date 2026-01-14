@@ -4,13 +4,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      target:
-        description: 'dev'
-        required: true
-        default: 'dev'
-        type: string
 
 jobs:
   validate:
@@ -27,4 +20,4 @@ jobs:
 
       - name: PR Bundle Validation
         run: |
-          databricks bundle validate --target ${inputs.target}
+          databricks bundle validate --target dev
