@@ -29,7 +29,6 @@ def spark() -> SparkSession:
     """
     return DatabricksSession.builder.getOrCreate()
 
-
 @pytest.fixture()
 def load_fixture(spark: SparkSession):
     """Provide a callable to load JSON or CSV from fixtures/ directory.
@@ -67,7 +66,6 @@ def _enable_fallback_compute():
     print(f"  see {url} for manual configuration", file=sys.stdout)
 
     os.environ["DATABRICKS_SERVERLESS_COMPUTE_ID"] = "auto"
-
 
 @contextmanager
 def _allow_stderr_output(config: pytest.Config):
