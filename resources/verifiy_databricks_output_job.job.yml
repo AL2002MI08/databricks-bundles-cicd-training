@@ -1,0 +1,8 @@
+resources:
+  jobs:
+    cicd_training_job:
+      name: CICD Training Job
+      tasks:
+        - task_key: verify_workspace_task
+          notebook_task:
+            notebook_path: ../src/verify_workspace.ipynb

@@ -1,0 +1,39 @@
+name: Deploy dev on merge to main
+on:
+    push:
+        branches:
+            - main
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      environment: DATABRICKS_TOKEN
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: setup uv
+          uses: astral-sh/setup-uv@v5
+          with:
+            version: 'latest'
+
+        - name: Install Databricks CLI
+          uses: databricks/setup-cli@main
+
+        - name: Deploy to Dev
+          run: |
+            databricks bundle deploy --target dev
+        - name: Print deployed resources
+          run:
+            databricks bundle summary --target dev
+        - name: Trigger Job Run and Wait
+          run: |
+            databricks bundle run cicd_training_job --target dev
+        - name: Verify Job Output
+          run: |
+            databricks fs ls dbfs:/tmp/cicd_training_table
+            echo "Verification complete."
+
+    
