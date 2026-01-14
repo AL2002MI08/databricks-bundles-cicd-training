@@ -67,7 +67,6 @@ def _enable_fallback_compute():
 
     os.environ["DATABRICKS_SERVERLESS_COMPUTE_ID"] = "auto"
 
-
 @contextmanager
 def _allow_stderr_output(config: pytest.Config):
     """Temporarily disable pytest output capture."""
