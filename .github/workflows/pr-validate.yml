@@ -1,0 +1,30 @@
+name: PR Bundle Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'dev'
+        required: true
+        default: 'dev'
+        type: string
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: PR Bundle Validation
+        run: |
+          databricks bundle validate --target ${inputs.target}
