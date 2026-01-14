@@ -29,7 +29,6 @@ def spark() -> SparkSession:
     """
     return DatabricksSession.builder.getOrCreate()
 
-
 @pytest.fixture()
 def load_fixture(spark: SparkSession):
     """Provide a callable to load JSON or CSV from fixtures/ directory.
