@@ -1,0 +1,45 @@
+name: Deploy to prod
+
+on:
+    push:
+        tags:
+            - 'v*.*.*'
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      environment: prod
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: setup uv
+          uses: astral-sh/setup-uv@v5
+          with:
+            version: 'latest'
+
+        - name: Install Databricks CLI
+          uses: databricks/setup-cli@main
+
+        - name: Deploy to Prod
+          run: |
+            databricks bundle deploy --target prod
+
+        - name: Print deployed resources
+          run:
+            databricks bundle summary --target prod
+
+        - name: Trigger Job Run and Wait
+          run: |
+            databricks bundle run cicd_training_job --target prod
+        - name: Publish Deployment Summary
+          run: |
+            echo "## Production Deployment" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "" "**Version:** ${{ github.ref }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "" "**SHA:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
