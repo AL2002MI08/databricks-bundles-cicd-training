@@ -33,7 +33,7 @@ jobs:
             databricks bundle run cicd_training_job --target dev
         - name: Verify Job Output
           run: |
-            databricks fs cat dbfs:/FileStore/cicd_success.txt
+            databricks workspace export /src/verify_workspace.ipynb
             echo "Verification complete."
 
     

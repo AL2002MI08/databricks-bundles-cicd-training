@@ -7,6 +7,9 @@ bundle:
 include:
   - resources/*.yml
   - resources/*/*.yml
+sync:
+  include:
+    - src
 
 artifacts:
   python_artifact:
