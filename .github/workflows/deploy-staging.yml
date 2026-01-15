@@ -1,0 +1,33 @@
+name: Deploy to staging
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Deploy to Staging
+        run: |
+          databricks bundle deploy --target staging
+
+      - name: Print deployed resources
+        run: |
+          databricks bundle summary --target staging
+
+      - name: Trigger Job Run and Wait
+        run: |
+          databricks bundle run cicd_training_job --target staging
