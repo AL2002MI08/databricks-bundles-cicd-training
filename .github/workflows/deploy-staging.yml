@@ -9,7 +9,7 @@ jobs:
     environment: staging
     env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_STAGING }}
 
     steps:
       - name: Checkout code
