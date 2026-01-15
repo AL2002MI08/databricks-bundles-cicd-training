@@ -68,3 +68,11 @@ with this project. It's also possible to interact with it directly using the CLI
    ```
    $ uv run pytest
    ```
+
+
+## Required secrets
+
+- DATABRICKS_HOST
+- DATABRICKS_TOKEN
+- WORKSPACE_PATH
+- DATABRICKS_TOKEN_STAGING
