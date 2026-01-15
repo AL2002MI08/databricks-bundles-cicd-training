@@ -30,6 +30,8 @@ variables:
     description: The processing date in YYYY-MM-DD format
   environment:
     description: The dev or staging environment
+  prefix_target:
+    description: The prefix of a target
 
 targets:
   dev:
@@ -48,6 +50,7 @@ targets:
       catalog: workspace
       schema: ${workspace.current_user.short_name}
       environment: dev
+      prefix_target: dev
   staging:
     mode: production
     workspace:
@@ -60,6 +63,7 @@ targets:
       environment: staging
       catalog: workspace
       schema: ${workspace.current_user.short_name}_staging
+      prefix_target: staging
   prod:
     mode: production
     workspace:
@@ -74,6 +78,7 @@ targets:
       input_path: /Workspace/Shared/prod_input_data
       processing_date: "2026-01-15"
       catalog: workspace
+      prefix_target: prod
     permissions:
       - user_name: alexandramizero93@gmail.com
         level: CAN_MANAGE

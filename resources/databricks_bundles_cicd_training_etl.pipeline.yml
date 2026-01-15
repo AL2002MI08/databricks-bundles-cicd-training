@@ -3,7 +3,8 @@
 resources:
   pipelines:
     databricks_bundles_cicd_training_etl:
-      name: databricks_bundles_cicd_training_etl
+      name: ${var.prefix_target}_databricks_bundles_cicd_training_etl
+
       catalog: ${var.catalog}
       schema: ${var.schema}
       serverless: true
