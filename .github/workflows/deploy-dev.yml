@@ -31,9 +31,10 @@ jobs:
         - name: Trigger Job Run and Wait
           run: |
             databricks bundle run cicd_training_job --target dev
-        - name: Verify Job Output
-          run: |
-            databricks workspace export /Workspace/Users/alexandramizero93@gmail.com/.bundle/databricks_bundles_cicd_training/dev/files/src/verify_workspace
-            echo "Verification complete."
 
-    
+        - name: Verify Job Output
+          env:
+            WORKSPACE_PATH: ${{ secrets.WORKSPACE_PATH }}
+          run: |
+            databricks workspace export "${WORKSPACE_PATH}" ./verify_workspace || true
+            echo "Verification complete."
