@@ -70,6 +70,10 @@ targets:
       catalog: workspace
       schema: prod
       environment: prod
+      run_mode: full
+      input_path: /Workspace/Shared/prod_input_data
+      processing_date: "2026-01-15"
+      catalog: workspace
     permissions:
       - user_name: alexandramizero93@gmail.com
         level: CAN_MANAGE
